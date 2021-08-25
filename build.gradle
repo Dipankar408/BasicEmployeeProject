@@ -1,0 +1,35 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+}
+
+dependencies{
+
+	testImplementation group: 'junit', name: 'junit', version: '4.12'
+	implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+	
+	implementation group: 'com.google.inject', name: 'guice', version: '4.2.0'
+	implementation group: 'com.google.inject.extensions', name: 'guice-servlet', version: '4.2.0'
+	implementation group: 'com.google.inject.extensions', name: 'guice-persist', version: '4.2.0'
+	
+	implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.3.2.Final'
+	implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.4'
+	
+	implementation group: 'org.jboss.resteasy', name: 'resteasy-guice', version: '3.6.0.Final'
+	implementation group: 'org.jboss.resteasy', name: 'resteasy-jaxb-provider', version: '3.6.0.Final'
+	implementation group: 'org.jboss.resteasy', name: 'resteasy-servlet-initializer', version: '3.6.0.Final'
+	
+	
+	implementation group: 'jstl', name: 'jstl', version: '1.2'
+	
+	
+	implementation group: 'org.jboss.resteasy', name: 'resteasy-html', version: '3.6.0.Final'
+   implementation group: 'javax.servlet.jsp.jstl', name: 'jstl-api', version: '1.2'
+	implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
+		
+}
