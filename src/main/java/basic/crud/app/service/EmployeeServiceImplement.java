@@ -50,8 +50,11 @@ public class EmployeeServiceImplement implements EmployeeService{
 	
 	@Override
 	@Transactional
-	public void editEmployee(int id) {
-		// TODO Auto-generated method stub
+	public void editEmployee(int id,Employee emp) {
+		EntityManager em=employee.get();
+		Query query=em.createQuery("Update Employee e set e.ename='"+emp.getEname()+"', e.salary="+emp.getSalary()+
+					", e.position='"+emp.getPosition()+"', e.contact="+emp.getContact()+" where e.eid="+id);
+		query.executeUpdate();
 		
 	}
 
@@ -62,7 +65,7 @@ public class EmployeeServiceImplement implements EmployeeService{
 		
 		EntityManager em=employee.get();
 		Query query=em.createQuery("Select e from Employee e where e.eid="+id);
-		List<Employee> emp=(List<Employee>) query.getSingleResult();
+		List<Employee> emp=(List<Employee>) query.getResultList();
 		return emp;
 	}
 

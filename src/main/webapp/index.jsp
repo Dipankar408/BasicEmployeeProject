@@ -7,22 +7,43 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset="UTF-8">
+<link rel="stylesheet" href="style.css">
 <title>HomePage</title>
 </head>
 <body>
+<div>
+	<a href="/EmployeeBook">Home</a>
+	<form action="/EmployeeBook/createEmp" method="post" align="center">
+		<fieldset>
+			<legend>Employee-Details</legend>
+				Name:
+				<input type="text" name="ename"/><br>
+				Salary:
+				<input type="text" name="salary"/><br>
+				Position:
+				<input type="text" name="position"/><br>
+				Contact:
+				<input type="text" name="contact"/><br>
+				<input type="submit" style="width:70px"/><br>
+		</fieldset>
+	</form>
+	<div class="btn">
+		<h3>Employee List</h3>
+		Order By Salary:-  
+		<a href="/EmployeeBook/sortFromHigh">High To Low</a>
+		<a href="/EmployeeBook/sortFromLow">Low To High</a><br>
 
-<form action="/EmployeeBook/createEmp" method="post">
-Name:<br>
-<input type="text" name="ename"/><br>
-Salary:<br>
-<input type="text" name="salary"/><br>
-Position:<br>
-<input type="text" name="position"/><br>
-COntact:<br>
-<input type="text" name="contact"/><br>
-<input type="submit"/><br>
-</form>
-
+		<form action="/EmployeeBook/search" method="post" class="search">
+			Enter Value:<input type="text" name="val"><br>
+			<input type="radio" name="search_category" value="searchById" required class="input">
+			<label for="searchById">Search By ID</label><br>
+			<input type="radio" name="search_category" value="searchByName" class="input">
+			<label for="searchByName">Search By Name</label><br>
+			<input type="radio" name="search_category" value="searchByPosition" class="input">
+			<label for="searchByPosition">Search By Position</label><br>
+			<input type="submit" value="Search">
+		</form>
+	</div>
 
 <table border="1" align="center">
 	<tr>
@@ -39,8 +60,13 @@ COntact:<br>
 			<td>${employee.salary}</td>
 			<td>${employee.position}</td>
 			<td>${employee.contact}</td>
+			<td colspan="2">
+			<a href="/EmployeeBook/edit/${employee.eid}">Edit</a> 
+			<a href="/EmployeeBook/delete/${employee.eid}">Delete</a>
+			</td>
 		</tr>
 	</c:forEach> 	
 </table>
+</div>
 </body>
 </html>
