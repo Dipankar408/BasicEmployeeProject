@@ -2,11 +2,12 @@ package basic.crud.app.service;
 
 import java.util.List;
 
+import basic.crud.app.enitity.Address;
 import basic.crud.app.enitity.Employee;
 
 public interface EmployeeService {
 
-	public void createNewEmployee(Employee emp);
+	public void createNewEmployee(Employee emp,Address adr);
 	
 	public List<Employee> showAllEmployee();
 	

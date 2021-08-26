@@ -24,6 +24,14 @@
 				<input type="text" name="position"/><br>
 				Contact:
 				<input type="text" name="contact"/><br>
+				City:
+				<input type="text" name="city"/><br>
+				District:
+				<input type="text" name="district"/><br>
+				State:
+				<input type="text" name="state"/><br>
+				Pincode:
+				<input type="text" name="pin"/><br>
 				<input type="submit" style="width:70px"/><br>
 		</fieldset>
 	</form>
@@ -52,6 +60,10 @@
 		<th>Salary</th>
 		<th>Job Role</th>
 		<th>Contact No</th>
+		<th>City</th>
+		<th>District</th>
+		<th>State</th>
+		<th>Pincode</th>
 	</tr>
  <c:forEach items="${empList}" var="employee">
 		<tr>
@@ -60,13 +72,17 @@
 			<td>${employee.salary}</td>
 			<td>${employee.position}</td>
 			<td>${employee.contact}</td>
+			<td>${employee.getAdr().city}</td>
+			<td>${employee.getAdr().district}</td>
+			<td>${employee.getAdr().state}</td>
+			<td>${employee.getAdr().pincode}</td>
 			<td colspan="2">
 			<a href="/EmployeeBook/edit/${employee.eid}">Edit</a> 
 			<a href="/EmployeeBook/delete/${employee.eid}">Delete</a>
 			</td>
 		</tr>
 	</c:forEach> 	
-</table>
+</table> 
 </div>
 </body>
 </html>

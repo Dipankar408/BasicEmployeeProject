@@ -1,9 +1,11 @@
 package basic.crud.app.enitity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +18,16 @@ public class Employee {
 	private double salary;
 	private String position;
 	private long contact;
+	
+	@ManyToOne(cascade= {CascadeType.REMOVE})
+	private Address adr=new Address();
+	
+	public Address getAdr() {
+		return adr;
+	}
+	public void setAdr(Address adr) {
+		this.adr = adr;
+	}
 	
 	public int getEid() {
 		return eid;

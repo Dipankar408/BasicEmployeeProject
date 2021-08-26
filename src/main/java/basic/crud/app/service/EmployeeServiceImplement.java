@@ -10,6 +10,7 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.google.inject.persist.Transactional;
 
+import basic.crud.app.enitity.Address;
 import basic.crud.app.enitity.Employee;
 
 @Singleton
@@ -20,9 +21,29 @@ public class EmployeeServiceImplement implements EmployeeService{
 	
 	@Override
 	@Transactional
-	public void createNewEmployee(Employee emp) {
+	public void createNewEmployee(Employee emp,Address adr) {
+		long pin=adr.getPincode();
 		
 		EntityManager em=employee.get();
+		
+		Address address=null;
+		
+		Query query=em.createQuery("Select a from Address a where a.pincode="+pin);
+		try {
+		address=(Address)query.getSingleResult();
+		}catch(Exception e)
+		{
+			
+		}
+		
+		if(address!=null)
+		{
+			emp.setAdr(address);
+		}
+		else
+		{
+			em.persist(adr);
+		}
 		em.persist(emp);		
 	}
 
@@ -32,7 +53,7 @@ public class EmployeeServiceImplement implements EmployeeService{
 	public List<Employee> showAllEmployee() {
 		
 		EntityManager em=employee.get();
-		Query query=em.createQuery("Select e from Employee e order by e.eid asc");
+		Query query=em.createQuery("Select e from Employee e,Address a where e.adr=a.pincode order by e.eid asc");
 		List<Employee> empList=query.getResultList();
 		return empList;		
 	}
@@ -43,6 +64,7 @@ public class EmployeeServiceImplement implements EmployeeService{
 	public void deleteEmployee(int id) {
 		
 		EntityManager em=employee.get();
+		
 		Query query=em.createQuery("Delete from Employee e where e.eid="+id);
 		query.executeUpdate();	
 	}

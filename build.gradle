@@ -29,7 +29,7 @@ dependencies{
 	
 	
 	implementation group: 'org.jboss.resteasy', name: 'resteasy-html', version: '3.6.0.Final'
-   implementation group: 'javax.servlet.jsp.jstl', name: 'jstl-api', version: '1.2'
+  implementation group: 'javax.servlet.jsp.jstl', name: 'jstl-api', version: '1.2'
 	implementation group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
 		
 }

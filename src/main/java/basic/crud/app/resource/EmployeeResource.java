@@ -16,6 +16,7 @@ import org.jboss.resteasy.plugins.providers.html.View;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import basic.crud.app.enitity.Address;
 import basic.crud.app.enitity.Employee;
 import basic.crud.app.service.EmployeeService;
 
@@ -40,14 +41,26 @@ public class EmployeeResource {
 		double sal=Double.parseDouble(req.getParameter("salary"));
 		String pos=req.getParameter("position");
 		long num=Long.parseLong(req.getParameter("contact"));
+		long pin=Long.parseLong(req.getParameter("pin"));
+		String city=req.getParameter("city");
+		String dist=req.getParameter("district");
+		String state=req.getParameter("state");
 		
 		Employee emp=new Employee();
 		emp.setEname(name);
 		emp.setSalary(sal);
 		emp.setPosition(pos);
 		emp.setContact(num);
+	
+		Address adr=new Address();
+		adr.setPincode(pin);
+		adr.setCity(city);
+		adr.setDistrict(dist);
+		adr.setState(state);
 		
-		empService.createNewEmployee(emp);
+		emp.setAdr(adr);
+		
+		empService.createNewEmployee(emp,adr);
 		return displayAllEmployee();
 	}
 	
