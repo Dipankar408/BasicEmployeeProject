@@ -68,7 +68,26 @@ public class EmployeeServiceImplement implements EmployeeService{
 		EntityManager em=employee.get();
 		
 		Query query=em.createQuery("Delete from Employee e where e.eid="+id);
+		Query qadr=em.createQuery("Select e.adr from Employee e where e.eid="+id);
+		Query qpass=em.createQuery("Delete from Password p where p.employ="+id);
+		
+		Address address=(Address) qadr.getSingleResult();
+		long pin=address.getPincode();
+		
+		Query qcheck=em.createQuery("Select e from Employee e where e.adr="+pin);
+		
+		List<Employee> elist=qcheck.getResultList();
+		
+		qpass.executeUpdate();
 		query.executeUpdate();	
+		
+		if(elist.size()==1)
+		{
+			Query adr_dlt=em.createQuery("Delete from Address a where a.pincode="+pin);
+			adr_dlt.executeUpdate();
+		}
+		
+		
 	}
 
 	

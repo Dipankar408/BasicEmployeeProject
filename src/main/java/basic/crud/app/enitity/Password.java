@@ -1,5 +1,6 @@
 package basic.crud.app.enitity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +14,7 @@ public class Password {
 	private int pid;
 	private String password;
 	
-	@OneToOne
+	@OneToOne(cascade= {CascadeType.REMOVE})
 	private Employee employ;
 
 	public int getPid() {
