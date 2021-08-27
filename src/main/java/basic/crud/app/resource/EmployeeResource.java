@@ -3,6 +3,8 @@ package basic.crud.app.resource;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
@@ -28,10 +30,11 @@ public class EmployeeResource {
 	EmployeeService empService;
 	
 	@GET
+	@Path("employeeList")
 	public View displayAllEmployee() {
 		
 		List<Employee> empList=empService.showAllEmployee();
-		return new View("/index.jsp",empList,"empList");
+		return new View("/employeeList.jsp",empList,"empList");
 	}
 	
 	@POST
@@ -103,7 +106,7 @@ public class EmployeeResource {
 	
 	@POST
 	@Path("search")
-	public View searchEmployee(@Context HttpServletRequest req, @Context HttpServletResponse resp)throws IOException {
+	public void searchEmployee(@Context HttpServletRequest req, @Context HttpServletResponse resp)throws IOException, ServletException {
 		String val=req.getParameter("val");
 		String search_cat=req.getParameter("search_category");
 		List<Employee> empList=null;
@@ -120,7 +123,16 @@ public class EmployeeResource {
 		{
 			empList=empService.searchByEmployeePosition(val);
 		}
-		return new View("/index.jsp",empList,"empList");
+		String message="";
+		if(empList.isEmpty())
+		{
+			message="Not found any match data";
+		}
+//		return new View("/employeeList.jsp",empList,"empList");
+		req.setAttribute("empList", empList);
+		req.setAttribute("message", message);
+		RequestDispatcher rd=req.getRequestDispatcher("/employeeList.jsp");
+		rd.forward(req, resp);
 	}
 	
 	
@@ -128,7 +140,7 @@ public class EmployeeResource {
 	@Path("sortFromHigh")
 	public View highToLow() {
 		List<Employee> empList=empService.sortByHighestSal();
-		return new View("/index.jsp",empList,"empList");
+		return new View("/employeeList.jsp",empList,"empList");
 	}
 	
 	
@@ -136,7 +148,7 @@ public class EmployeeResource {
 	@Path("sortFromLow")
 	public View lowToHigh() {
 		List<Employee> empList=empService.sortByLowestSal();
-		return new View("/index.jsp",empList,"empList");
+		return new View("/employeeList.jsp",empList,"empList");
 	}
 	
 	

@@ -37,6 +37,7 @@ a{
 <body>
 	<div>
 	<a href="/EmployeeBook">Home</a>
+	<a href="/EmployeeBook/employeeList">List of Employee</a>
 	<c:forEach items="${empList}" var="employee">
 		<c:set var="id" scope="session" value="${employee.eid}"/>
 		<form action="/EmployeeBook/update/${id}" method="post" align="center">

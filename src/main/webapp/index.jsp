@@ -13,6 +13,7 @@
 <body>
 <div>
 	<a href="/EmployeeBook">Home</a>
+	<a href="/EmployeeBook/employeeList">List of Employee</a><br><br>
 	<form action="/EmployeeBook/createEmp" method="post" align="center">
 		<fieldset>
 			<legend>Employee-Details</legend>
@@ -35,54 +36,6 @@
 				<input type="submit" style="width:70px"/><br>
 		</fieldset>
 	</form>
-	<div class="btn">
-		<h3>Employee List</h3>
-		Order By Salary:-  
-		<a href="/EmployeeBook/sortFromHigh">High To Low</a>
-		<a href="/EmployeeBook/sortFromLow">Low To High</a><br>
-
-		<form action="/EmployeeBook/search" method="post" class="search">
-			Enter Value:<input type="text" name="val"><br>
-			<input type="radio" name="search_category" value="searchById" required class="input">
-			<label for="searchById">Search By ID</label><br>
-			<input type="radio" name="search_category" value="searchByName" class="input">
-			<label for="searchByName">Search By Name</label><br>
-			<input type="radio" name="search_category" value="searchByPosition" class="input">
-			<label for="searchByPosition">Search By Position</label><br>
-			<input type="submit" value="Search">
-		</form>
-	</div>
-
-<table border="1" align="center">
-	<tr>
-		<th>Employee ID</th>
-		<th>Employee Name</th>
-		<th>Salary</th>
-		<th>Job Role</th>
-		<th>Contact No</th>
-		<th>City</th>
-		<th>District</th>
-		<th>State</th>
-		<th>Pincode</th>
-	</tr>
- <c:forEach items="${empList}" var="employee">
-		<tr>
-			<td>${employee.eid}</td>
-			<td>${employee.ename}</td>
-			<td>${employee.salary}</td>
-			<td>${employee.position}</td>
-			<td>${employee.contact}</td>
-			<td>${employee.getAdr().city}</td>
-			<td>${employee.getAdr().district}</td>
-			<td>${employee.getAdr().state}</td>
-			<td>${employee.getAdr().pincode}</td>
-			<td colspan="2">
-			<a href="/EmployeeBook/edit/${employee.eid}">Edit</a> 
-			<a href="/EmployeeBook/delete/${employee.eid}">Delete</a>
-			</td>
-		</tr>
-	</c:forEach> 	
-</table> 
 </div>
 </body>
 </html>
