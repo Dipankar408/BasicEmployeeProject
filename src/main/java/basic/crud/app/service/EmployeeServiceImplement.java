@@ -12,6 +12,7 @@ import com.google.inject.persist.Transactional;
 
 import basic.crud.app.enitity.Address;
 import basic.crud.app.enitity.Employee;
+import basic.crud.app.enitity.Password;
 
 @Singleton
 public class EmployeeServiceImplement implements EmployeeService{
@@ -21,7 +22,7 @@ public class EmployeeServiceImplement implements EmployeeService{
 	
 	@Override
 	@Transactional
-	public void createNewEmployee(Employee emp,Address adr) {
+	public void createNewEmployee(Employee emp,Address adr,Password pw) {
 		long pin=adr.getPincode();
 		
 		EntityManager em=employee.get();
@@ -44,6 +45,7 @@ public class EmployeeServiceImplement implements EmployeeService{
 		{
 			em.persist(adr);
 		}
+		em.persist(pw);
 		em.persist(emp);		
 	}
 
@@ -125,6 +127,24 @@ public class EmployeeServiceImplement implements EmployeeService{
 		Query query=em.createQuery("Select e from Employee e order by e.salary asc");
 		List<Employee> empList=query.getResultList();
 		return empList;	
+	}
+
+
+	@Override
+	@Transactional
+	public boolean loginCheck(int id, String pass) {
+		EntityManager em=employee.get();
+		Password pw=null;
+		Query query=em.createQuery("Select p from Password p where p.employ="+id+" and p.password='"+pass+"'");
+		try {
+			pw=(Password) query.getSingleResult();
+		}catch(Exception e){
+			
+		}
+		if(pw!=null) {
+			return true;
+		}
+		return false;
 	}
 
 	

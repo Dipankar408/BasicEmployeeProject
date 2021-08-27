@@ -4,10 +4,11 @@ import java.util.List;
 
 import basic.crud.app.enitity.Address;
 import basic.crud.app.enitity.Employee;
+import basic.crud.app.enitity.Password;
 
 public interface EmployeeService {
 
-	public void createNewEmployee(Employee emp,Address adr);
+	public void createNewEmployee(Employee emp,Address adr,Password pw);
 	
 	public List<Employee> showAllEmployee();
 	
@@ -24,4 +25,6 @@ public interface EmployeeService {
 	public List<Employee> sortByHighestSal();
 	
 	public List<Employee> sortByLowestSal();
+	
+	public boolean loginCheck(int id,String pass);
 }

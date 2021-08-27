@@ -33,7 +33,9 @@
 				<input type="text" name="state"/><br>
 				Pincode:
 				<input type="text" name="pin"/><br>
-				<input type="submit" style="width:70px"/><br>
+				Password:
+				<input type="text" name="pass"/><br>
+				<input type="submit" value="Register" style="width:70px"/><br>
 		</fieldset>
 	</form>
 </div>

@@ -62,8 +62,8 @@ h2,h4{
 			<td>${employee.getAdr().state}</td>
 			<td>${employee.getAdr().pincode}</td>
 			<td colspan="2">
-			<a href="/EmployeeBook/edit/${employee.eid}">Edit</a> 
-			<a href="/EmployeeBook/delete/${employee.eid}">Delete</a>
+			<a href="/EmployeeBook/login/${employee.eid}/update">Edit</a> 
+			<a href="/EmployeeBook/login/${employee.eid}/delete">Delete</a>
 			</td>
 		</tr>
 	</c:forEach> 	

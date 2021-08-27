@@ -20,6 +20,7 @@ import com.google.inject.Singleton;
 
 import basic.crud.app.enitity.Address;
 import basic.crud.app.enitity.Employee;
+import basic.crud.app.enitity.Password;
 import basic.crud.app.service.EmployeeService;
 
 @Singleton
@@ -48,6 +49,7 @@ public class EmployeeResource {
 		String city=req.getParameter("city");
 		String dist=req.getParameter("district");
 		String state=req.getParameter("state");
+		String pass=req.getParameter("pass");
 		
 		Employee emp=new Employee();
 		emp.setEname(name);
@@ -63,7 +65,11 @@ public class EmployeeResource {
 		
 		emp.setAdr(adr);
 		
-		empService.createNewEmployee(emp,adr);
+		Password pw=new Password();
+		pw.setPassword(pass);
+		pw.setEmploy(emp);
+		
+		empService.createNewEmployee(emp,adr,pw);
 		return displayAllEmployee();
 	}
 	
@@ -149,6 +155,35 @@ public class EmployeeResource {
 	public View lowToHigh() {
 		List<Employee> empList=empService.sortByLowestSal();
 		return new View("/employeeList.jsp",empList,"empList");
+	}
+	
+	@GET
+	@Path("login/{id}/{task}")
+	public void loginPage(@PathParam("id") int id, @PathParam("task") String task, @Context HttpServletRequest req, @Context HttpServletResponse resp)throws IOException, ServletException {
+		req.setAttribute("task", task);
+		req.setAttribute("id", id);
+		req.setAttribute("msg", "Type Correct Login Cardentials");
+		RequestDispatcher rd=req.getRequestDispatcher("/login.jsp");
+		rd.forward(req, resp);
+	}
+	
+	@POST
+	@Path("authentication/{task}/{id}")
+	public void authentication(@PathParam("id") int id,@PathParam("task") String task,@Context HttpServletRequest req, @Context HttpServletResponse resp)throws IOException, ServletException  {
+		String pass=req.getParameter("pass");
+		if(empService.loginCheck(id, pass))
+		{
+			if(task.equalsIgnoreCase("delete"))
+			{
+				resp.sendRedirect("http://localhost:8080/EmployeeBook/delete/"+id);
+			}
+			else {
+				resp.sendRedirect("http://localhost:8080/EmployeeBook/edit/"+id);
+			}
+		}
+		else {
+			resp.sendRedirect("http://localhost:8080/EmployeeBook/login/"+id+"/"+task);
+		}
 	}
 	
 	
