@@ -18,23 +18,23 @@
 		<fieldset>
 			<legend>Employee-Details</legend>
 				Name:
-				<input type="text" name="ename"/><br>
+				<input type="text" name="ename" required/><br>
 				Salary:
-				<input type="text" name="salary"/><br>
+				<input type="text" name="salary" required/><br>
 				Position:
-				<input type="text" name="position"/><br>
+				<input type="text" name="position" required/><br>
 				Contact:
-				<input type="text" name="contact"/><br>
+				<input type="text" name="contact" required/><br>
 				City:
-				<input type="text" name="city"/><br>
+				<input type="text" name="city" required/><br>
 				District:
-				<input type="text" name="district"/><br>
+				<input type="text" name="district" required/><br>
 				State:
-				<input type="text" name="state"/><br>
+				<input type="text" name="state" required/><br>
 				Pincode:
-				<input type="text" name="pin"/><br>
+				<input type="text" name="pin" required/><br>
 				Password:
-				<input type="text" name="pass"/><br>
+				<input type="text" name="pass" required/><br>
 				<input type="submit" value="Register" style="width:70px"/><br>
 		</fieldset>
 	</form>
