@@ -41,6 +41,7 @@ a{
 	<c:forEach items="${empList}" var="employee">
 		<c:set var="id" scope="session" value="${employee.eid}"/>
 		<form action="/EmployeeBook/update/${id}" method="post" align="center">
+			<h4 style="color:red;">${msg}</h4>
 			<fieldset>
 				<legend>Employee-Details</legend>
 				Name:

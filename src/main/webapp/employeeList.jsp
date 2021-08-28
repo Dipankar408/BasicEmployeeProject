@@ -37,7 +37,7 @@ h2,h4{
 		</form>
 	</div>
 	<h3>Employee List</h3>
-	<h4>${message}</h4>
+	<h4 style="color:red;">${message}</h4>
 <table border="1" align="center">
 	<tr>
 		<th>Employee ID</th>

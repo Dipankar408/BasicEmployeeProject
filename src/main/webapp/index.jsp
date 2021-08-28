@@ -15,28 +15,33 @@
 	<a href="/EmployeeBook">Home</a>
 	<a href="/EmployeeBook/employeeList">List of Employee</a><br><br>
 	<form action="/EmployeeBook/createEmp" method="post" align="center">
+		<h3>Employee Details</h3>
+		<h5 style="color:red;">${msg}</h5>
 		<fieldset>
-			<legend>Employee-Details</legend>
-				Name:
-				<input type="text" name="ename" required/><br>
-				Salary:
-				<input type="text" name="salary" required/><br>
-				Position:
-				<input type="text" name="position" required/><br>
-				Contact:
-				<input type="text" name="contact" required/><br>
-				City:
-				<input type="text" name="city" required/><br>
-				District:
-				<input type="text" name="district" required/><br>
-				State:
-				<input type="text" name="state" required/><br>
-				Pincode:
-				<input type="text" name="pin" required/><br>
-				Password:
-				<input type="text" name="pass" required/><br>
-				<input type="submit" value="Register" style="width:70px"/><br>
+			<legend>Personal Information</legend>
+				
+				<input type="text" name="ename" placeholder="Enter Your Name" required/><br>
+				
+				<input type="text" name="salary" placeholder="Enter Your Salary" required/><br>
+				
+				<input type="text" name="position" placeholder="Enter Your Job Role" required/><br>
+				
+				<input type="text" name="contact" placeholder="Enter Your Contact Number" required/><br>
+
+				<input type="text" name="pass" placeholder="Enter Your PassWord" required/><br>
+				
+		</fieldset>	
+		<fieldset>
+		<legend>Address</legend>
+				<input type="text" name="city" placeholder="Enter Your City" required/><br>
+				
+				<input type="text" name="district" placeholder="Enter Your District" required/><br>
+	
+				<input type="text" name="state" placeholder="Enter Your State" required/><br>
+			
+				<input type="text" name="pin" placeholder="Enter Your Pincode" required/><br>
 		</fieldset>
+		<input type="submit" value="Register" style="width:70px"/><br>
 	</form>
 </div>
 </body>

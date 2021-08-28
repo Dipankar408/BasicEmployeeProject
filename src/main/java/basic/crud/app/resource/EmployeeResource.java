@@ -31,6 +31,15 @@ public class EmployeeResource {
 	EmployeeService empService;
 	
 	@GET
+	public View indexView(){
+		String msg="";
+		return new View("/index.jsp",msg,"msg");
+	}
+	{
+		
+	}
+	
+	@GET
 	@Path("employeeList")
 	public View displayAllEmployee() {
 		
@@ -42,23 +51,34 @@ public class EmployeeResource {
 	@Path("createEmp")
 	public View createEmployee(@Context HttpServletRequest req, @Context HttpServletResponse resp) throws IOException{
 		String name=req.getParameter("ename");
-		double sal=Double.parseDouble(req.getParameter("salary"));
 		String pos=req.getParameter("position");
-		long num=Long.parseLong(req.getParameter("contact"));
-		long pin=Long.parseLong(req.getParameter("pin"));
+		
+		Employee emp=new Employee();
+		Address adr=new Address();
+		
+		
+		try {
+			double sal=Double.parseDouble(req.getParameter("salary"));
+			long num=Long.parseLong(req.getParameter("contact"));
+			long pin=Long.parseLong(req.getParameter("pin"));
+			
+			emp.setSalary(sal);
+			emp.setContact(num);
+			adr.setPincode(pin);
+		}catch(NumberFormatException e)
+		{
+			String msg="Salary,Contact Number and Pincode should be in number";
+			return new View("/index.jsp",msg,"msg");
+		}
 		String city=req.getParameter("city");
 		String dist=req.getParameter("district");
 		String state=req.getParameter("state");
 		String pass=req.getParameter("pass");
 		
-		Employee emp=new Employee();
+		
 		emp.setEname(name);
-		emp.setSalary(sal);
 		emp.setPosition(pos);
-		emp.setContact(num);
-	
-		Address adr=new Address();
-		adr.setPincode(pin);
+		
 		adr.setCity(city);
 		adr.setDistrict(dist);
 		adr.setState(state);
@@ -76,28 +96,46 @@ public class EmployeeResource {
 	
 	@GET
 	@Path("edit/{id}")
-	public View editEmployee(@PathParam("id") int id) {
+	public void editEmployee(@Context HttpServletRequest req, @Context HttpServletResponse resp,@PathParam("id") int id) throws ServletException, IOException {
 		List<Employee> empList=(List<Employee>) empService.searchByEmployeeId(id);
-		return new View("/update.jsp",empList,"empList");
+		req.setAttribute("empList", empList);
+		req.setAttribute("msg", "");
+		RequestDispatcher rd=req.getRequestDispatcher("/update.jsp");
+		rd.forward(req, resp);
 	}
 	
 	
 	@POST
 	@Path("update/{id}")
-	public View udateEmployee(@Context HttpServletRequest req, @Context HttpServletResponse resp, @PathParam("id") int id) throws IOException{
+	public void udateEmployee(@Context HttpServletRequest req, @Context HttpServletResponse resp, @PathParam("id") int id) throws IOException, ServletException{
 		String name=req.getParameter("ename");
-		double sal=Double.parseDouble(req.getParameter("salary"));
 		String pos=req.getParameter("position");
-		long num=Long.parseLong(req.getParameter("contact"));
 		
 		Employee emp=new Employee();
 		emp.setEname(name);
-		emp.setSalary(sal);
 		emp.setPosition(pos);
-		emp.setContact(num);
+		try {
+			double sal=Double.parseDouble(req.getParameter("salary"));
+			long num=Long.parseLong(req.getParameter("contact"));
+			
+			emp.setSalary(sal);
+			emp.setContact(num);
+			
+			empService.editEmployee(id, emp);
+			List<Employee> empList=empService.showAllEmployee();
+			req.setAttribute("empList", empList);
+			req.setAttribute("msg", "");
+			RequestDispatcher rd=req.getRequestDispatcher("/employeeList.jsp");
+			rd.forward(req, resp);
+		}
+		catch(NumberFormatException e) {
+			List<Employee> empList=(List<Employee>) empService.searchByEmployeeId(id);
+			req.setAttribute("empList", empList);
+			req.setAttribute("msg", "Salary and Number should be in number");
+			RequestDispatcher rd=req.getRequestDispatcher("/update.jsp");
+			rd.forward(req, resp);
+		}
 		
-		empService.editEmployee(id, emp);;
-		return displayAllEmployee();
 	}
 	
 	
@@ -116,10 +154,20 @@ public class EmployeeResource {
 		String val=req.getParameter("val");
 		String search_cat=req.getParameter("search_category");
 		List<Employee> empList=null;
+		String message="";
 		if(search_cat.equalsIgnoreCase("searchById"))
 		{
-			int id=Integer.parseInt(val);
-			empList=empService.searchByEmployeeId(id);
+			int id=0;
+			try {
+				id=Integer.parseInt(val);
+				empList=empService.searchByEmployeeId(id);
+			}catch(NumberFormatException e) {
+				message="Id should be in number";
+				req.setAttribute("empList", empList);
+				req.setAttribute("message", message);
+				RequestDispatcher rd=req.getRequestDispatcher("/employeeList.jsp");
+				rd.forward(req, resp);
+			}
 		}
 		else if(search_cat.equalsIgnoreCase("searchByName"))
 		{
@@ -129,7 +177,7 @@ public class EmployeeResource {
 		{
 			empList=empService.searchByEmployeePosition(val);
 		}
-		String message="";
+		
 		if(empList.isEmpty())
 		{
 			message="Not found any match data";
