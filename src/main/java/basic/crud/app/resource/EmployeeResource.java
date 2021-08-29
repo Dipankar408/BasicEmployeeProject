@@ -210,7 +210,7 @@ public class EmployeeResource {
 	public void loginPage(@PathParam("id") int id, @PathParam("task") String task, @Context HttpServletRequest req, @Context HttpServletResponse resp)throws IOException, ServletException {
 		req.setAttribute("task", task);
 		req.setAttribute("id", id);
-		req.setAttribute("msg", "Type Correct Login Cardentials");
+		req.setAttribute("msg", "");
 		RequestDispatcher rd=req.getRequestDispatcher("/login.jsp");
 		rd.forward(req, resp);
 	}
@@ -230,7 +230,12 @@ public class EmployeeResource {
 			}
 		}
 		else {
-			resp.sendRedirect("http://localhost:8080/EmployeeBook/login/"+id+"/"+task);
+//			resp.sendRedirect("http://localhost:8080/EmployeeBook/login/"+id+"/"+task);
+			req.setAttribute("task", task);
+			req.setAttribute("id", id);
+			req.setAttribute("msg", "Invalid Password");
+			RequestDispatcher rd=req.getRequestDispatcher("/login.jsp");
+			rd.forward(req, resp);
 		}
 	}
 	

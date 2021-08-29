@@ -41,7 +41,7 @@ a{
 		<a href="/EmployeeBook">Home</a>
 		<a href="/EmployeeBook/employeeList">List of Employee</a><br><br>
 		<form action="/EmployeeBook/authentication/${task}/${id}" method="post">
-			<h4>${msg}</h4>
+			<h4 style="color:red">${msg}</h4>
 			Employee Id:<input type="text" name="id" value="${id}"/><br>
 			Password:<input type="text" name="pass" /><br>
 			<input type="submit" value="Login"/>
